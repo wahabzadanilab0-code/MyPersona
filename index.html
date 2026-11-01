@@ -158,7 +158,6 @@ body {
     border: 1px solid rgba(185,154,104,.28);
     backdrop-filter: blur(18px);
     box-shadow: 0 18px 48px rgba(0,0,0,.30);
-    color: #172523;
     min-height: 480px;
 }
 
@@ -234,8 +233,14 @@ body {
 }
 
 @keyframes appear {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media(max-width: 750px) {
@@ -258,10 +263,12 @@ body {
 </head>
 
 <body>
+
 <div class="container">
 
-
+    <!-- FORM SECTION -->
     <form class="form-box" id="myForm" novalidate>
+
         <div class="form-header">
             <div class="icon" aria-hidden="true">✧</div>
             <h2>PERSONAL PROFILE</h2>
@@ -304,10 +311,14 @@ body {
         </div>
 
         <button type="submit" class="submit-btn">✧ SUBMIT ✧</button>
+
         <p id="message" aria-live="polite"></p>
+
     </form>
 
+    <!-- RESULT SECTION -->
     <div class="result-box">
+
         <div class="result-header">
             <div class="crown" aria-hidden="true">◇</div>
             <h2>MY PROFILE</h2>
@@ -320,57 +331,101 @@ body {
                 Complete the form and click Submit.
             </div>
         </div>
+
     </div>
 
 </div>
 
-
 <script>
+
 const form = document.getElementById("myForm");
 
 form.addEventListener("submit", function(event) {
+
     event.preventDefault();
 
     const fields = [
-        { label: "Name", value: document.getElementById("name").value, color: document.getElementById("nameColor").value },
-        { label: "Last Name", value: document.getElementById("lastName").value, color: document.getElementById("lastColor").value },
-        { label: "Email", value: document.getElementById("email").value, color: document.getElementById("emailColor").value },
-        { label: "Country", value: document.getElementById("country").value, color: document.getElementById("countryColor").value },
-        { label: "Age", value: document.getElementById("age").value, color: document.getElementById("ageColor").value },
-        { label: "Education", value: document.getElementById("education").value, color: document.getElementById("educationColor").value },
-        { label: "Job", value: document.getElementById("job").value, color: document.getElementById("jobColor").value }
+        {
+            label: "Name",
+            value: document.getElementById("name").value,
+            color: document.getElementById("nameColor").value
+        },
+        {
+            label: "Last Name",
+            value: document.getElementById("lastName").value,
+            color: document.getElementById("lastColor").value
+        },
+        {
+            label: "Email",
+            value: document.getElementById("email").value,
+            color: document.getElementById("emailColor").value
+        },
+        {
+            label: "Country",
+            value: document.getElementById("country").value,
+            color: document.getElementById("countryColor").value
+        },
+        {
+            label: "Age",
+            value: document.getElementById("age").value,
+            color: document.getElementById("ageColor").value
+        },
+        {
+            label: "Education",
+            value: document.getElementById("education").value,
+            color: document.getElementById("educationColor").value
+        },
+        {
+            label: "Job",
+            value: document.getElementById("job").value,
+            color: document.getElementById("jobColor").value
+        }
     ];
 
     let output = "";
 
     fields.forEach(function(item, index) {
+
         if (item.value.trim() !== "") {
+
             let color = item.color.trim();
 
             if (!color || !CSS.supports("color", color)) {
                 color = "#f5f0e8";
             }
 
-            output += 
-                <div class="result-item" style="animation-delay:${index * 0.08}s">
-                    <strong>${escapeHTML(item.label)}</strong>
-                    <span style="color:${escapeHTML(color)}">${escapeHTML(item.value)}</span>
-                </div>
+            output += `
+                <div class="result-item"
+                     style="animation-delay:${index * 0.08}s">
 
-            
-            ;
+                    <strong>${escapeHTML(item.label)}</strong>
+
+                    <span style="color:${escapeHTML(color)}">
+                        ${escapeHTML(item.value)}
+                    </span>
+
+                </div>
+            `;
         }
+
     });
 
-    document.getElementById("result").innerHTML = output || 
-        <div class="empty-message">Please enter your information!</div>
-    ;
+    document.getElementById("result").innerHTML = output || `
+        <div class="empty-message">
+            Please enter your information!
+        </div>
+    `;
 
-    document.getElementById("message").textContent = "✧ Profile Updated Successfully ✧";
+    document.getElementById("message").textContent =
+        "✧ Profile Updated Successfully ✧";
+
 });
 
+
 function escapeHTML(text) {
+
     return text.replace(/[&<>"']/g, function(char) {
+
         return {
             "&": "&amp;",
             "<": "&lt;",
@@ -378,8 +433,12 @@ function escapeHTML(text) {
             '"': "&quot;",
             "'": "&#039;"
         }[char];
+
     });
+
 }
+
 </script>
+
 </body>
 </html>
